@@ -5,21 +5,22 @@ import Detail from './Detail'
 import Detail2 from './Detail2'
 import searchIcon from '../assets/searchIcon1.svg'
 import cross from '../assets/cross.svg'
+import loader1 from '../assets/loader.svg'
 
 const List = ({ detail, setDetail }) => {
 
     const [users, setUsers] = useState(null)
     const [show, setShow] = useState(false)
+    const [loader, setLoader] = useState(false)
     const [searchResult, setSearchResult] = useState(null)
     const [showSearch, setShowSearch] = useState(false)
     const inputRef = useRef(null);
 
     const getData = async () => {
-        let res = await axios("./src/data.json")
-        console.log(res);
-        console.log(res?.data);
-        setUsers(res.data)
-        setDetail(res.data[0])
+        let { data } = await axios("https://602e7c2c4410730017c50b9d.mockapi.io/users")
+        setUsers(data)
+        setDetail(data[0])
+        setLoader(true)
     }
 
     useEffect(() => {
@@ -63,27 +64,11 @@ const List = ({ detail, setDetail }) => {
                 }} src={cross} alt="" srcset="" />}
             </div>
 
-            {/* SHOWING SEARCH RESULT */}
-            {showSearch && <div className='w-full h-full bg-white overflow-scroll'>
-                {searchResult?.map((e) => (
-                    <div key={`${e.id}${e.profile.email}`} onClick={() => handleClick(e)} className={`flex gap-2 p-2 hover:bg-teal-300 cursor-pointer ${detail?.id == e?.id ? "bg-teal-300" : "transparent"} shadow-lg`}>
+            {loader ? <>
 
-                        <div className='w-[40px] h-[40px]'><Image user={e} /></div>
-
-                        <p>
-                            <span>{e.profile.firstName} {e.profile.lastName}</span>
-                        </p>
-
-                    </div>
-                ))}
-            </div>}
-
-            {/* SHOWING USER LIST  */}
-            {!showSearch && <div className='w-full h-full flex flex-col gap-2 overflow-scroll'>
-
-                {users && users.length > 1 ? <>
-
-                    {users.map((e) => (
+                {/* SHOWING SEARCH RESULT */}
+                {showSearch && <div className='w-full h-full bg-white overflow-scroll'>
+                    {searchResult?.map((e) => (
                         <div key={`${e.id}${e.profile.email}`} onClick={() => handleClick(e)} className={`flex gap-2 p-2 hover:bg-teal-300 cursor-pointer ${detail?.id == e?.id ? "bg-teal-300" : "transparent"} shadow-lg`}>
 
                             <div className='w-[40px] h-[40px]'><Image user={e} /></div>
@@ -94,10 +79,30 @@ const List = ({ detail, setDetail }) => {
 
                         </div>
                     ))}
+                </div>}
 
-                </> : <div className='w-full h-full flex justify-center items-center'>loading...</div>}
+                {/* SHOWING USER LIST  */}
+                {!showSearch && <div className='w-full h-full flex flex-col gap-2 overflow-scroll'>
 
-            </div>}
+                    {users && users.length > 1 ? <>
+
+                        {users.map((e) => (
+                            <div key={`${e.id}${e.profile.email}`} onClick={() => handleClick(e)} className={`flex gap-2 p-2 hover:bg-teal-300 cursor-pointer ${detail?.id == e?.id ? "bg-teal-300" : "transparent"} shadow-lg`}>
+
+                                <div className='w-[40px] h-[40px]'><Image user={e} /></div>
+
+                                <p>
+                                    <span>{e.profile.firstName} {e.profile.lastName}</span>
+                                </p>
+
+                            </div>
+                        ))}
+
+                    </> : <div className='w-full h-full flex justify-center items-center'>NO DATA TO SHOW</div>}
+
+                </div>}
+
+            </> : <div className='w-full h-full flex justify-center items-center'><img className='w-[80px] h-[80px]' src={loader1} alt="" srcset="" /></div>}
 
 
 
