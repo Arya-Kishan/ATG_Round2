@@ -11,7 +11,7 @@ const Detail = ({ detail }) => {
 
                 <div className='w-[200px] h-[200px]'><Image user={detail} /></div>
 
-                <p className='font-bold text-teal-300'>{detail.profile?.username}</p>
+                <p className='font-bold text-teal-300'>{detail.profile?.firstName} {detail.profile?.lastName}</p>
 
                 <p className='text-center'>{detail?.Bio}</p>
 

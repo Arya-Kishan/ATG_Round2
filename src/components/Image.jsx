@@ -11,7 +11,7 @@ const Image = ({ user }) => {
 
     return (
         <div className='w-full h-full bg-teal-900 rounded-full'>
-            {data ? <img className='w-full h-full' onError={handleImgError} src={user.avatar} alt="" srcSet="" /> : <img className='w-full h-full' src={avatar} alt="" srcSet="" />}
+            {data ? <img className='w-full h-full' onError={handleImgError} src={`https://avatar.iran.liara.run/public/boy?userName=${user.profile.firstName}`} alt="" srcSet="" /> : <img className='w-full h-full' src={avatar} alt="" srcSet="" />}
         </div>
     )
 }

@@ -58,10 +58,10 @@ const List = ({ detail, setDetail }) => {
             <div className='flex justify-center items-center bg-white px-2
             '>
                 <input ref={inputRef} className='w-full text-[18px] p-2 border-none outline-none' onChange={handleInput} placeholder='Search User...' type="text" />
-                {!showSearch ? <img src={searchIcon} alt="" srcset="" /> : <img onClick={() => {
+                {!showSearch ? <img src={searchIcon} alt="" srcSet="" /> : <img onClick={() => {
                     setShowSearch(false)
                     inputRef.current.value = ""
-                }} src={cross} alt="" srcset="" />}
+                }} src={cross} alt="" srcSet="" />}
             </div>
 
             {loader ? <>
@@ -87,7 +87,7 @@ const List = ({ detail, setDetail }) => {
                     {users && users.length > 1 ? <>
 
                         {users.map((e) => (
-                            <div key={`${e.id}${e.profile.email}`} onClick={() => handleClick(e)} className={`flex gap-2 p-2 hover:bg-teal-300 cursor-pointer ${detail?.id == e?.id ? "bg-teal-300" : "transparent"} shadow-lg`}>
+                            <div key={`${e.id}${e.profile.email}`} onClick={() => handleClick(e)} className={`flex gap-2 p-2 hover:bg-teal-300 cursor-pointer ${detail?.profile.username == e?.profile.username ? "bg-teal-300" : "transparent"} shadow-lg`}>
 
                                 <div className='w-[40px] h-[40px]'><Image user={e} /></div>
 
@@ -102,7 +102,7 @@ const List = ({ detail, setDetail }) => {
 
                 </div>}
 
-            </> : <div className='w-full h-full flex justify-center items-center'><img className='w-[80px] h-[80px]' src={loader1} alt="" srcset="" /></div>}
+            </> : <div className='w-full h-full flex justify-center items-center'><img className='w-[80px] h-[80px]' src={loader1} alt="" srcSet="" /></div>}
 
 
 
